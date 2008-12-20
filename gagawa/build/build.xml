@@ -51,6 +51,16 @@
 	</target>
 	
 	<!-- ================================= 
+	      target: all
+	     ================================= -->
+	<target name="all" description="builds and runs everything, probably more than most people want">
+		<antcall target="build" />
+		<antcall target="test" />
+		<antcall target="tests.report" />
+		<antcall target="javadoc" />
+	</target>
+	
+	<!-- ================================= 
 	      target: build
 	     ================================= -->
 	<target name="compile" description="compiles the Gagawa HTML generator" depends="init">
@@ -114,8 +124,8 @@
 	</target>
 	
 	<!-- ================================= 
-	          target: javadoc
-	         ================================= -->
+          target: javadoc
+         ================================= -->
 	<target name="javadoc" description="builds the Gagawa javadoc">
 		<mkdir dir="${docdir}/javadoc" />
 		<javadoc sourcepath="${maindir}/src" destdir="${docdir}/javadoc"
