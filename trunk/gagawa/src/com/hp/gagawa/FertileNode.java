@@ -92,7 +92,7 @@ public class FertileNode extends Node {
 	
 	/**
 	 * Gets the list of child nodes
-	 * @return
+	 * @return a list of children
 	 */
 	public ArrayList<Node> getChildren(){
 		return children;

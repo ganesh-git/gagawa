@@ -3,15 +3,22 @@
 	<property file="build-custom.properties" />
 	<property file="build.properties" />
 	
-	<property name="maindir" value=".." />
-	<property name="distdir" value="dist" />
-	<property name="destdir" value="classes" />
-	<property name="libdir" value="${maindir}/lib" />
-	<property name="testsdir" value="tests" />
 	<property name="debug" value="off" />
 	<property name="source" value="1.6" />
 	
+	<!-- absolute directories -->
+	<property name="maindir" value=".." />
+	<property name="distdir" value="dist" />
+	<property name="destdir" value="classes" />
+	<property name="testsdir" value="tests" />
+	
+	<!-- computed paths -->
+	<property name="libdir" value="${maindir}/lib" />
+	<property name="docdir" value="${maindir}/doc" />
+	
+	<!-- included libraries -->
 	<property name="junitjar" value="${libdir}/junit-4.1.jar" />
+	<property name="xercesjar" value="${libdir}/xerces.jar" />
 	
 	<!-- ================================= 
 	      target: init
@@ -29,6 +36,7 @@
 		<delete dir="${distdir}" />
 		<delete dir="${distdir}/${destdir}" />
 		<delete dir="${testsdir}"/>
+		<delete dir="${docdir}/javadoc"/>
 	</target>
 	
 	
@@ -103,6 +111,21 @@
 			<report todir="${testsdir}\report" />
 		</junitreport>
 		<echo message="Report available at build/${testsdir}/report/index.html" />
+	</target>
+	
+	<!-- ================================= 
+	          target: javadoc
+	         ================================= -->
+	<target name="javadoc" description="builds the Gagawa javadoc">
+		<mkdir dir="${docdir}/javadoc" />
+		<javadoc sourcepath="${maindir}/src" destdir="${docdir}/javadoc"
+			     access="package" version="true" use="true"
+		         author="true" encoding="${source.encoding}">
+			<fileset dir="${maindir}/src" includes="**/*.java" />
+			<classpath>
+				<pathelement location="${xercesjar}"/>
+			</classpath>
+		</javadoc>
 	</target>
 	
 </project>
