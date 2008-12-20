@@ -10,7 +10,6 @@
 	<property name="testsdir" value="tests" />
 	<property name="debug" value="off" />
 	<property name="source" value="1.6" />
-	<property name="version" value="1.0" />
 	
 	<property name="junitjar" value="${libdir}/junit-4.1.jar" />
 	
@@ -47,7 +46,9 @@
 	      target: build
 	     ================================= -->
 	<target name="compile" description="compiles the Gagawa HTML generator" depends="init">
-		<javac srcdir="${maindir}/src" destdir="${distdir}/${destdir}" debug="${debug}" source="${source}">
+		<javac encoding="${source.encoding}" srcdir="${maindir}/src"
+			   destdir="${distdir}/${destdir}" debug="${debug}"
+			   source="${source}">
 			<exclude name="**/builder/**/*.*" />
 		</javac>
 	</target>
@@ -56,7 +57,7 @@
 	      target: package
 	     ================================= -->
 	<target name="package" description="packages the Gagawa HTML generator jar" depends="compile">
-		<jar destfile="gagawa-${version}.jar">
+		<jar destfile="${distdir}/gagawa-${gagawa.version}.jar">
 			<fileset dir="${distdir}/${destdir}">
 				<include name="**/*.class" />
 			</fileset>
@@ -67,7 +68,8 @@
 	      target: compile.test
 	     ================================= -->
 	<target name="compile.test" depends="compile">
-		<javac srcdir="${maindir}/test" destdir="${distdir}/${destdir}" 
+		<javac encoding="${source.encoding}" srcdir="${maindir}/test"
+			   destdir="${distdir}/${destdir}" 
 			debug="${debug}" includeAntRuntime="no" source="${source}" classpath="${junitjar}"/>
 	</target>
 	
