@@ -59,7 +59,7 @@ public class MoreComplexGagawaExample {
 		{"value 5","text 5"}
 	};
 
-	public static void main  (String [] args ) {
+	public static void main ( String [] args ) {
 		
 		Html html = new Html();
 		html.appendChild( buildHead() );
