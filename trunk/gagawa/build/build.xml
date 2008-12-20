@@ -82,6 +82,7 @@
 			<fileset file="${license}" />
 			<fileset dir="${distdir}/${destdir}">
 				<include name="**/*.class" />
+				<exclude name="**/examples/*.class" />
 			</fileset>
 		</jar>
 	</target>
@@ -91,8 +92,9 @@
 	     ================================= -->
 	<target name="compile.test" depends="compile">
 		<javac encoding="${source.encoding}" srcdir="${maindir}/test"
-			   destdir="${distdir}/${destdir}" 
-			debug="${debug}" includeAntRuntime="no" source="${source}" classpath="${junitjar}"/>
+			destdir="${distdir}/${destdir}" 
+			debug="${debug}" includeAntRuntime="no"
+			source="${source}" classpath="${junitjar}"/>
 	</target>
 	
 	<!-- ================================= 
@@ -125,6 +127,16 @@
 			<report todir="${testsdir}\report" />
 		</junitreport>
 		<echo message="Report available at build/${testsdir}/report/index.html" />
+	</target>
+	
+	<!-- ================================= 
+	      target: compile.examples
+	     ================================= -->
+	<target name="compile.examples" depends="compile">
+		<javac encoding="${source.encoding}" srcdir="${maindir}/examples"
+			destdir="${distdir}/${destdir}" 
+			debug="${debug}" includeAntRuntime="no"
+			source="${source}" classpath="${junitjar}"/>
 	</target>
 	
 	<!-- ================================= 
