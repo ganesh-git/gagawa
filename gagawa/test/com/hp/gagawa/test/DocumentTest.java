@@ -20,10 +20,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-package com.hp.gagawa;
+package com.hp.gagawa.test;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import com.hp.gagawa.Document;
+import com.hp.gagawa.DocumentType;
 
 
 /**
