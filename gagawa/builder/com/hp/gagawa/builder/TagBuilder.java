@@ -62,19 +62,29 @@ public class TagBuilder {
 				ArrayList<String> opt = new ArrayList<String>();
 				NodeList kids = node.getChildNodes();
 				int jlen = kids.getLength();
+				NodeList attrs = null;
 				for(int j = 0; j < jlen; j++){
-					Node kid = kids.item(j);
-					NamedNodeMap am = kid.getAttributes();
-					if(am != null){
-						String nodeValue = kid.getFirstChild().getNodeValue();
-						if(am.getNamedItem("required") != null){
-							req.add(nodeValue);
-						}else{
-							opt.add(nodeValue);
+					if(kids.item(j).getNodeName().equals("attributes")){
+						attrs = kids.item(j).getChildNodes();
+						break;
+					}
+				}
+				if(attrs != null){
+					jlen = attrs.getLength();
+					for(int j = 0; j < jlen; j++){
+						Node attr = attrs.item(j);
+						NamedNodeMap am = attr.getAttributes();
+						if(am != null){
+							String nodeValue = attr.getFirstChild().getNodeValue();
+							if(am.getNamedItem("required") != null){
+								req.add(nodeValue);
+							}else{
+								opt.add(nodeValue);
+							}
 						}
 					}
 				}
-				if(myTag == null || myTag.equals(name)){
+				if(myTag == null || myTag.equalsIgnoreCase(name)){
 					new Tag(name, allowKids, req, opt).writeTagClass();
 				}
 			}
