@@ -43,7 +43,7 @@ public class TagBuilder {
 		
 		DOMParser parser = new DOMParser();
 		try {
-			File xml = new File("src/com/hp/gagawa/builder/tags.xml");
+			File xml = new File("builder/com/hp/gagawa/builder/tags.xml");
 			parser.parse(xml.getCanonicalPath());
 			Document doc = parser.getDocument();
 			
