@@ -22,12 +22,12 @@ THE SOFTWARE.
 
 package com.hp.gagawa.examples;
 
+import com.hp.gagawa.Document;
+import com.hp.gagawa.DocumentType;
 import com.hp.gagawa.elements.Body;
 import com.hp.gagawa.elements.Br;
 import com.hp.gagawa.elements.Div;
 import com.hp.gagawa.elements.Form;
-import com.hp.gagawa.elements.Head;
-import com.hp.gagawa.elements.Html;
 import com.hp.gagawa.elements.Img;
 import com.hp.gagawa.elements.Input;
 import com.hp.gagawa.elements.Option;
@@ -61,10 +61,11 @@ public class MoreComplexGagawaExample {
 
 	public static void main ( String [] args ) {
 		
-		Html html = new Html();
-		html.appendChild( buildHead() );
+		Document document = new Document(DocumentType.XHTMLTransitional);
 		
-		Body body = new Body();
+		document.head.appendChild( new Title().appendChild( new Text("Complex Example Title") ) );
+		
+		Body body = document.body;
 		
 		Div wrap = goAheadMakeMyDiv();
 		body.appendChild( wrap );
@@ -94,28 +95,8 @@ public class MoreComplexGagawaExample {
 		submit.setValue( "Submit!" );
 		form.appendChild( submit );
 		
-		html.appendChild( body );
-		
 		// Output the HTML.
-		System.out.println( html.write() );
-		
-	}
-	
-	
-	/**
-	 * Builds a primative site header, consisting of a
-	 * Head, and Title.
-	 * @return
-	 */
-	public static Head buildHead ( ) {
-	
-		Head head = new Head();
-				
-		Title title = new Title();
-		title.appendChild( new Text("Complex Example Title") );
-		head.appendChild( title );
-		
-		return head;
+		System.out.println( document.write() );
 		
 	}
 	

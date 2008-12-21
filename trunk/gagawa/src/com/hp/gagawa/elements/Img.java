@@ -28,8 +28,14 @@ public class Img extends Node {
 
 	public Img(String alt, String src){
 		super("img");
-		setAlt(alt);		setSrc(src);	}
+		setAlt(alt);		
+		setSrc(src);	
+	}
 
+	@Override
+	public String write(){
+		return writeOpen();
+	}
 
 	public Img setAlt(String value){setAttribute("alt", value); return this;}
 	public String getAlt(){return getAttribute("alt");}
