@@ -31,6 +31,11 @@ public class Br extends Node {
 	public Br(){
 		super("br");
 	}
+	
+	@Override
+	public String write(){
+		return writeOpen();
+	}
 
 
 	public Br setId(String value){setAttribute("id", value); return this;}

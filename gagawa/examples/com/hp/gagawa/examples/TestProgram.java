@@ -22,11 +22,6 @@ THE SOFTWARE.
 
 package com.hp.gagawa.examples;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-
 import com.hp.gagawa.Document;
 import com.hp.gagawa.DocumentType;
 import com.hp.gagawa.elements.A;
@@ -81,7 +76,7 @@ public class TestProgram {
 		
 		d1.setStyle("float:left");
 		
-		try {
+		/*try {
 			File output = new File("test/test.html");
 			PrintWriter out = new PrintWriter(new FileOutputStream(output));
 			out.println(document.write());
@@ -90,7 +85,7 @@ public class TestProgram {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }
