@@ -68,9 +68,7 @@
 	<target name="compile" description="compiles the Gagawa HTML generator" depends="init">
 		<javac encoding="${source.encoding}" srcdir="${maindir}/src"
 			   destdir="${distdir}/${destdir}" debug="${debug}"
-			   source="${source}">
-			<exclude name="**/builder/**/*.*" />
-		</javac>
+			   source="${source}" />
 	</target>
 	
 	<!-- ================================= 
