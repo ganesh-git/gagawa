@@ -20,13 +20,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-package com.hp.gagawa;
+package com.hp.gagawa.examples;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
+import com.hp.gagawa.Document;
+import com.hp.gagawa.DocumentType;
 import com.hp.gagawa.elements.A;
 import com.hp.gagawa.elements.Br;
 import com.hp.gagawa.elements.Comment;
@@ -46,7 +48,7 @@ public class TestProgram {
 	public static void main(String[] args) {
 		
 		Document document = new Document(DocumentType.XHTMLStrict);
-		
+
 		Comment c1 = new Comment("This is part 1.");
 		c1.appendChild(new Text("This is a comment!\n"));
 		c1.appendChild(new Text("This is part 2!"));
