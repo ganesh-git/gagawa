@@ -22,6 +22,7 @@ THE SOFTWARE.*/
 package com.hp.gagawa;
 
 public enum DocumentType {
+	
 	HTMLStrict("HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\""),
 	HTMLTransitional("HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\""),
 	HTMLFrameset("HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\""),
@@ -30,10 +31,13 @@ public enum DocumentType {
 	XHTMLFrameset("html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\"");
 	
 	private final String spec;
+	
 	DocumentType(String sp){
 		spec = sp;
 	}
+	
 	public String spec(){
 		return spec;
 	}
+	
 };
