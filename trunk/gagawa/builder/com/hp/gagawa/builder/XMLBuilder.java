@@ -162,6 +162,7 @@ public class XMLBuilder {
 	 * element as an attribute.  Multiple special needs are separated
 	 * by a comma:  [required=true,isAwesome=true]src.
 	 * @param token a raw token with special needs
+	 * @param attribute the element to add the special needs attributes to
 	 * @return a hashmap that maps each special need key to a value
 	 * @author kolichko
 	 */
