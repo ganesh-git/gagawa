@@ -28,8 +28,6 @@ import com.hp.gagawa.elements.Head;
 import com.hp.gagawa.elements.Html;
 
 
-
-
 public class Document{
 
 	private Doctype doctype;
