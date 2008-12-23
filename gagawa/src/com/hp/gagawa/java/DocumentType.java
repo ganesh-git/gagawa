@@ -17,51 +17,27 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-*/
+THE SOFTWARE.*/
 
-package com.hp.gagawa.examples;
+package com.hp.gagawa.java;
 
-import com.hp.gagawa.java.elements.Body;
-import com.hp.gagawa.java.elements.H1;
-import com.hp.gagawa.java.elements.Head;
-import com.hp.gagawa.java.elements.Html;
-import com.hp.gagawa.java.elements.Text;
-import com.hp.gagawa.java.elements.Title;
-
-/**
- * Uses Gagawa to build a very very simple web-page.
- * Demonstrates the usage of Html, Head, Title, Body,
- * and H1.
- * @author kolichko Mark Kolich
- *
- */
-public class SimpleGagawaExample {
-
-	/**
-	 * @param args
-	 */
-	public static void main ( String [] args ) {
-		
-		Html html = new Html();
-		Head head = new Head();
-		
-		html.appendChild( head );
-		
-		Title title = new Title();
-		title.appendChild( new Text("Example Page Title") );
-		head.appendChild( title );
-		
-		Body body = new Body();
-		
-		html.appendChild( body );
-		
-		H1 h1 = new H1();
-		h1.appendChild( new Text("Example Page Header") );
-		body.appendChild( h1 );
-		
-		System.out.println( html.write() );
-
+public enum DocumentType {
+	
+	HTMLStrict("HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\""),
+	HTMLTransitional("HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\""),
+	HTMLFrameset("HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\""),
+	XHTMLStrict("html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\""),
+	XHTMLTransitional("html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\""),
+	XHTMLFrameset("html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\"");
+	
+	private final String spec;
+	
+	DocumentType(String sp){
+		spec = sp;
 	}
-
-}
+	
+	public String spec(){
+		return spec;
+	}
+	
+};

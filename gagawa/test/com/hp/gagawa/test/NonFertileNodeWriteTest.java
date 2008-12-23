@@ -26,8 +26,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.hp.gagawa.elements.Br;
-import com.hp.gagawa.elements.Img;
+import com.hp.gagawa.java.elements.Br;
+import com.hp.gagawa.java.elements.Img;
 
 public class NonFertileNodeWriteTest {
 

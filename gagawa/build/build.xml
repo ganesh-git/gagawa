@@ -69,6 +69,9 @@
 		<javac encoding="${source.encoding}" srcdir="${maindir}/src"
 			   destdir="${distdir}/${destdir}" debug="${debug}"
 			   source="${source}" />
+			<fileset>
+				<exclude name="**/*.php" />
+			</fileset>
 	</target>
 	
 	<!-- ================================= 

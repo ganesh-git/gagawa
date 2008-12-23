@@ -22,17 +22,17 @@ THE SOFTWARE.
 
 package com.hp.gagawa.examples;
 
-import com.hp.gagawa.Document;
-import com.hp.gagawa.DocumentType;
-import com.hp.gagawa.elements.A;
-import com.hp.gagawa.elements.Br;
-import com.hp.gagawa.elements.Comment;
-import com.hp.gagawa.elements.Div;
-import com.hp.gagawa.elements.Img;
-import com.hp.gagawa.elements.Table;
-import com.hp.gagawa.elements.Td;
-import com.hp.gagawa.elements.Text;
-import com.hp.gagawa.elements.Tr;
+import com.hp.gagawa.java.Document;
+import com.hp.gagawa.java.DocumentType;
+import com.hp.gagawa.java.elements.A;
+import com.hp.gagawa.java.elements.Br;
+import com.hp.gagawa.java.elements.Comment;
+import com.hp.gagawa.java.elements.Div;
+import com.hp.gagawa.java.elements.Img;
+import com.hp.gagawa.java.elements.Table;
+import com.hp.gagawa.java.elements.Td;
+import com.hp.gagawa.java.elements.Text;
+import com.hp.gagawa.java.elements.Tr;
 
 
 public class TestProgram {

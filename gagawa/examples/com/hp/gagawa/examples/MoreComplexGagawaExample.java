@@ -22,18 +22,18 @@ THE SOFTWARE.
 
 package com.hp.gagawa.examples;
 
-import com.hp.gagawa.Document;
-import com.hp.gagawa.DocumentType;
-import com.hp.gagawa.elements.Body;
-import com.hp.gagawa.elements.Br;
-import com.hp.gagawa.elements.Div;
-import com.hp.gagawa.elements.Form;
-import com.hp.gagawa.elements.Img;
-import com.hp.gagawa.elements.Input;
-import com.hp.gagawa.elements.Option;
-import com.hp.gagawa.elements.Select;
-import com.hp.gagawa.elements.Text;
-import com.hp.gagawa.elements.Title;
+import com.hp.gagawa.java.Document;
+import com.hp.gagawa.java.DocumentType;
+import com.hp.gagawa.java.elements.Body;
+import com.hp.gagawa.java.elements.Br;
+import com.hp.gagawa.java.elements.Div;
+import com.hp.gagawa.java.elements.Form;
+import com.hp.gagawa.java.elements.Img;
+import com.hp.gagawa.java.elements.Input;
+import com.hp.gagawa.java.elements.Option;
+import com.hp.gagawa.java.elements.Select;
+import com.hp.gagawa.java.elements.Text;
+import com.hp.gagawa.java.elements.Title;
 
 
 /**
