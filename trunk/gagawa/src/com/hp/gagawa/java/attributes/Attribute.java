@@ -17,51 +17,48 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-*/
+THE SOFTWARE.*/
 
-package com.hp.gagawa.examples;
+package com.hp.gagawa.java.attributes;
 
-import com.hp.gagawa.java.elements.Body;
-import com.hp.gagawa.java.elements.H1;
-import com.hp.gagawa.java.elements.Head;
-import com.hp.gagawa.java.elements.Html;
-import com.hp.gagawa.java.elements.Text;
-import com.hp.gagawa.java.elements.Title;
-
-/**
- * Uses Gagawa to build a very very simple web-page.
- * Demonstrates the usage of Html, Head, Title, Body,
- * and H1.
- * @author kolichko Mark Kolich
- *
- */
-public class SimpleGagawaExample {
-
-	/**
-	 * @param args
-	 */
-	public static void main ( String [] args ) {
-		
-		Html html = new Html();
-		Head head = new Head();
-		
-		html.appendChild( head );
-		
-		Title title = new Title();
-		title.appendChild( new Text("Example Page Title") );
-		head.appendChild( title );
-		
-		Body body = new Body();
-		
-		html.appendChild( body );
-		
-		H1 h1 = new H1();
-		h1.appendChild( new Text("Example Page Header") );
-		body.appendChild( h1 );
-		
-		System.out.println( html.write() );
-
+public class Attribute {
+	private String name;
+	private String value;
+	
+	public Attribute(String name, String value){
+		this.name = name;
+		this.value = value;
+	}
+	
+	public Attribute(String name){
+		this.name = name;
+		this.value = null;
+	}
+	
+	public String write(){
+		StringBuffer b = new StringBuffer(" ");
+		b.append(name);
+		if(value != null){
+			b.append("=\"");
+			b.append(value);
+			b.append("\"");
+		}
+		return b.toString();
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
 }

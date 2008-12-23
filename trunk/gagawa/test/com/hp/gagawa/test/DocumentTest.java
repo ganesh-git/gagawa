@@ -25,8 +25,8 @@ package com.hp.gagawa.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import com.hp.gagawa.Document;
-import com.hp.gagawa.DocumentType;
+import com.hp.gagawa.java.Document;
+import com.hp.gagawa.java.DocumentType;
 
 
 /**
