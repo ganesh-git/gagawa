@@ -22,6 +22,6 @@ THE SOFTWARE.
 
 package com.hp.gagawa.builder.php;
 
-public class Tag {
+public class PHPBuilder {
 
 }
