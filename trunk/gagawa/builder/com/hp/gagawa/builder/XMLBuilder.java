@@ -53,8 +53,8 @@ public class XMLBuilder {
 	private static final String NAME_ATTRIBUTE = "name";
 	private static final String COMMENT = "#";
 		
-	private static final String TAGS_TXT = "builder/com/hp/gagawa/builder/java/tags.txt";
-	private static final String TAGS_XML = "builder/com/hp/gagawa/builder/java/tags.xml";
+	private static final String TAGS_TXT = "builder/com/hp/gagawa/builder/tags.txt";
+	private static final String TAGS_XML = "builder/com/hp/gagawa/builder/tags.xml";
 	
 	private static BufferedReader in;
 	private static PrintWriter out;
