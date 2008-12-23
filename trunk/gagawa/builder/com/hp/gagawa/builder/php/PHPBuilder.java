@@ -23,5 +23,9 @@ THE SOFTWARE.
 package com.hp.gagawa.builder.php;
 
 public class PHPBuilder {
+	
+	public static void main ( String [] args ) {
+		
+	}
 
 }
