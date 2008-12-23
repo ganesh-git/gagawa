@@ -24,6 +24,7 @@ package com.hp.gagawa.builder;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
@@ -45,30 +46,27 @@ public class XMLBuilder {
 	private static final String OPEN_ANGLE_BRACKET = "[";
 	private static final String CLOSE_ANGLE_BRACKET = "]";
 	
-	private static final String SEP = System.getProperty("file.separator");
-	private static final String WORKING = System.getProperty("user.dir");
-	
-	private static final String TAGS_TXT = WORKING + SEP + "builder" + SEP +
-											"com" + SEP + "hp" + SEP + "gagawa" +
-											SEP + "builder" + SEP + "tags.txt";
-	
-	private static final String TAGS_XML = WORKING + SEP + "builder" + SEP +
-											"com" + SEP + "hp" + SEP + "gagawa" +
-											SEP + "builder" + SEP + "tags.xml";
+	private static final String ROOT_ELEMENT = "document";
+	private static final String TAG_ELEMENT = "tag";
+	private static final String ATTRIBUTE_ELEMENT = "attribute";
+	private static final String ATTRIBUTES_ELEMENT = "attributes";
+	private static final String NAME_ATTRIBUTE = "name";
+	private static final String COMMENT = "#";
+		
+	private static final String TAGS_TXT = "builder/com/hp/gagawa/builder/tags.txt";
+	private static final String TAGS_XML = "builder/com/hp/gagawa/builder/tags.xml";
 	
 	private static BufferedReader in;
 	private static PrintWriter out;
 	
-	private static XMLOutputter outputter;
 	private static Document doc = new Document();
-	private static Element root = new Element( "document" );	
+	private static Element root = new Element( ROOT_ELEMENT );	
 
 	
 	public static void main ( String [] args ) {
 		
 		String line;
 		
-		System.out.println( "User's current working directory is " + WORKING );
 		System.out.println( "Using tags.txt at " + TAGS_TXT );
 		System.out.println( "Using tags.xml at " + TAGS_XML );
 	
@@ -81,14 +79,14 @@ public class XMLBuilder {
 				
 				// We skip lines in tags.txt that start with a #
 				// since # indicates a comment.
-				if ( line.startsWith("#") ) {
+				if ( line.startsWith( COMMENT ) ) {
 					continue;
 				}
 				
 				StringTokenizer token = new StringTokenizer(line);
 				String tagToken = token.nextToken();
 				
-				Element tag = new Element( "tag" );
+				Element tag = new Element( TAG_ELEMENT );
 				
 				// See if our tags have any special needs.
 				if ( tagToken.startsWith( OPEN_ANGLE_BRACKET ) ) {
@@ -101,16 +99,16 @@ public class XMLBuilder {
 				}
 				
 				// Set the tag name.
-				tag.setAttribute( "name", tagToken );
+				tag.setAttribute( NAME_ATTRIBUTE, tagToken );
 				
 				// Loop through the remaining children.
 				if ( token.hasMoreTokens() ) {
 					
-					Element attributes = new Element( "attributes" );
+					Element attributes = new Element( ATTRIBUTES_ELEMENT );
 					
 					while ( token.hasMoreTokens() ) {
 						
-						Element attribute = new Element( "attribute" );
+						Element attribute = new Element( ATTRIBUTE_ELEMENT );
 						String attributeToken = token.nextToken();
 						
 						// See if our attributes have any special needs.
@@ -123,39 +121,52 @@ public class XMLBuilder {
 							
 						} /* if */
 						
+						// Add this <attribute> to the <attributes> list of
+						// the tag.
 						attribute.setText( attributeToken );
 						attributes.addContent( attribute );
 						
 					} /* while */
 					
+					// Add this <attributes> to the <tag>.
 					tag.addContent( attributes );
 										
 				} /* if */
 				
+				// Add this <tag> to the root element, <document>.
 				root.addContent( tag );
 				
 			} /* while */
 			
-			outputter = new XMLOutputter(
-							Format.getPrettyFormat()
-							);
-			
+			// Create a new Document from the root, and write out
+			// the XML to the PrintWriter.
 			doc = new Document( root );
-			outputter.output( doc, out );
+			new XMLOutputter( Format.getPrettyFormat() ).output( doc, out );
 			
-			// Close the streams, get 'er done.
-			out.close();
-			in.close();
-			
-		} catch ( Throwable t ) {
+		}
+		catch ( Throwable t ) {
 			t.printStackTrace( System.err );
+		}
+		finally {
+			
+			// Cleanup.
+			
+			try {
+				// Close the streams, get 'er done.
+				out.close();
+				in.close();
+			}
+			catch ( IOException ioe ) {
+				System.err.println( "Couldn't close I/O streams!" );
+				ioe.printStackTrace( System.err );
+			}
+			
 		}
 		
 		System.out.println( "Complete!" );
 		
-	} /* main */
-	
-	
+	}
+		
 	/**
 	 * Reads the list of special needs from the start of an attribute
 	 * or tag, and processes them by adding each special need to the
@@ -171,8 +182,7 @@ public class XMLBuilder {
 		int closeBracket = token.lastIndexOf( CLOSE_ANGLE_BRACKET ) + 1;
 		String specialNeed = token.substring( 0, closeBracket );
 		
-		specialNeed = specialNeed.replace( OPEN_ANGLE_BRACKET, "" );
-		specialNeed = specialNeed.replace( CLOSE_ANGLE_BRACKET, "" );
+		specialNeed = specialNeed.replaceAll( "\\[|\\]", "" );
 		
 		// Multiple special needs are separeated with a comma.
 		String [] needs = specialNeed.split(",");
@@ -196,7 +206,7 @@ public class XMLBuilder {
 	 * @author kolichko
 	 */
 	private static String stripSpecialNeeds ( String token ) {
-		return token.substring( token.lastIndexOf( CLOSE_ANGLE_BRACKET ) + 1 );
+		return token.replaceAll( "^\\[.+\\]", "" );
 	}
 	
 }
