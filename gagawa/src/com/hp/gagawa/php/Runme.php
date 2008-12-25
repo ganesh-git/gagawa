@@ -33,15 +33,27 @@ require_once("elements/Br.php");
 require_once("elements/Text.php");
 
 $a = new A();
-$a->setHref( "http://www.google.com" );
-$a->setAttribute("class","linkclass");
-$a->setAttribute("target","_blank");
+$a->setHref( "http://kolich.com" );
 
-$text = new Text("some link");
-$a->appendChild( $text );
+// Note you can daisy chain attribute setters.
+$a->setAttribute("class","linkclass")
+	->setAttribute("target","_blank")
+	/*->setAttribute("","") <-- will generate an expected exception */
+	->setAttribute("id","linkid");
 
-$a->appendChild( new Br() );
+$text = new Text("random text");
+
+// Note you can daisy chain children setters.
+$a->appendChild( $text )->appendChild( new Br() )
+	->appendChild( new Text("more text") )->appendChild( new Br() )
+	/*->appendChild() <-- will generate an expected exception */
+	->appendChild( new Text("gagawa!" ) );
 
 echo $a->write() . "\n";
+
+// Example of creating a new FertileNode without the helper classes
+$tag = new FertileNode("div");
+$tag->setAttribute("class","dog")->setAttribute("id","mydiv");
+echo $tag->write() . "\n";
 
 ?>

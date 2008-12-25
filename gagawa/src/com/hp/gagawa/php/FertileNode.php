@@ -25,27 +25,59 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*
+ * Gagawa FertileNode PHP
+ * @author kolichko Mark Kolich
+ */
 class FertileNode extends Node {
 
 	private $children_;
 
-	public function __construct ( $tag ) {
+	public function __construct ( $tag = NULL ) {
+
+		if(empty($tag)){
+			throw new Exception( "FertileNode's must have a tag " .
+						"type!" );
+		}
+
 		parent::__construct( $tag );
-		$this->children_ = array();	
+		$this->children_ = array();
+
 	}
 	
-	public function appendChild ( $childNode ) {
+	public function appendChild ( $childNode = NULL ) {
+
+		if(empty($childNode)){
+			throw new Exception( "You cannot append an empty " .
+						"child node!" );
+		}
+
 		$childNode->setParent( $this );
 		$this->children_[] = $childNode;
+		return $this;
 	}
 
-	public function removeChild ( $childNode ) {
-		foreach ( $this->children_ as $node ) {
-			// TODO	
+	public function removeChild ( $childNode = NULL ) {
+
+		if(empty($childNode)){
+			throw new Exception( "You cannot remove an empty " .
+						"child node!" );
 		}
+
+		for ( $i = 0; $i < count($this->children_); $i++ ) {
+			$child = $this->children_[$i];
+			if($child===$childNode){
+				unset( $this->children_[$i] );
+				return true;
+			}
+		}
+
+		return false;
+
 	}
 
-	public function removeChilden ( ) {
+	public function removeChildren ( ) {
+		unset( $this->children_ );
 		$this->children_ = array();
 	}
 
@@ -53,7 +85,7 @@ class FertileNode extends Node {
 		return $this->children_;
 	}
 
-	public function getChild ( $index ) {
+	public function getChild ( $index = 0 ) {
 		return $this->children_[$index];
 	}
 
