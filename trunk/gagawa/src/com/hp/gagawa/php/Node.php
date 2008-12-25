@@ -27,15 +27,26 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 require_once("attributes/Attribute.php");
 
+/*
+ * Gagawa Node PHP
+ * @author kolichko Mark Kolich
+ */
 class Node {
 
 	protected $tag_;
 	protected $attributes_;
 	protected $parent_;
 
-	protected function __construct ( $tag ) {
+	protected function __construct ( $tag = NULL ) {
+
+		if(empty($tag)){
+			throw new Exception( "Node's must have a tag " .
+						"type!" );
+		}
+
 		$this->tag_ = $tag;
 		$this->attributes_ = array();
+
 	}
 
 	public function getParent ( ) {
@@ -46,33 +57,65 @@ class Node {
 		$this->parent_ = $parent;
 	}
 
-	public function setAttribute ( $name, $value ) {
-		if(isset($value)){
-			foreach ( $this->attributes_ as $attribute ) {
-				if($attribute->getName()===$name){
-					$attribute->setValue( $value );
-					return;
-				}
-			}
-			$this->attributes_[] = new Attribute( $name, $value );
-		}
-	}
+	public function setAttribute ( $name = NULL, $value = NULL ) {
 
-	public function getAttribute ( $name ) {
+		if(empty($name) || empty($value)){
+			throw new Exception("Attributes must have " .
+						"a name and a value!");
+
+		}
+
 		foreach ( $this->attributes_ as $attribute ) {
 			if($attribute->getName()===$name){
-				return $attribute->getValue();
+				$attribute->setValue( $value );
+				return;
 			}
 		}
+
+		$this->attributes_[] = new Attribute( $name, $value );
+		return $this;
+
 	}
 
-	public function removeAttribute ( $name ) {
+	public function getAttribute ( $name = NULL ) {
+
+		$returnAttr = NULL;
+
+		if(empty($name)){
+			throw new Exception("Attribute name cannot " .
+						"be empty!");
+		}
+
+		foreach ( $this->attributes_ as $attribute ) {
+			if($attribute->getName()===$name){
+				$returnAttr = $attribute->getValue();
+				break;
+			}
+		}
+
+		return $returnAttr;
+
+	}
+
+	public function removeAttribute ( $name = NULL ) {
+
+		if(empty($name)){
+			throw new Exception("Attribute name cannot " .
+						"be empty!");
+		}
+
 		for ( $i = 0; $i < count($this->attributes_); $i++ ) {
 			$attribute = $this->attributes_[$i];
 			if($attribute->getName()===$name){
 				unset( $this->attributes_[$i] );
+				return true;
 			}
 		}
+
+		// Couldn't find the attribute, so
+		// it wasn't removed.
+		return false;
+
 	}
 
 	public function write ( ) {
