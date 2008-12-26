@@ -22,8 +22,12 @@ THE SOFTWARE.
 
 package com.hp.gagawa.builder.php;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import org.apache.xerces.parsers.DOMParser;
@@ -41,23 +45,45 @@ import org.xml.sax.SAXException;
  */
 public class PHPBuilder {
 	
-	public static void main(String[] args) {
+	private static File gagawaPHP = new File( "src/com/hp/gagawa/php/Gagawa.php" );
+	private static final String PHP_START = "<?php";
+	private static final String PHP_END = "?>";
+	
+	public static void main ( String [] args ) {
 		
 		String myTag = null;
 		
-		if(args.length > 0){
+		if ( args.length > 0 ) {
 			myTag = args[0];
 		}
 		
 		DOMParser parser = new DOMParser();
+		
 		try {
+			
+			if( gagawaPHP.exists() ) {
+				if ( gagawaPHP.delete() ) {
+					System.out.println( "Deleted existing Gagawa.php library at " +
+										gagawaPHP.getCanonicalPath() );
+				}
+			}
+			
+			// Start out the master Gagawa.php file with a <?php declaration.
+			append( gagawaPHP, PHP_START + "\n" );
+			
+			// Copy the contents of node/*.php to Gagawa.php.
+			copyToPHP( new File( "src/com/hp/gagawa/php/nodes/Attribute.php" ), gagawaPHP );
+			copyToPHP( new File( "src/com/hp/gagawa/php/nodes/Node.php" ), gagawaPHP );
+			copyToPHP( new File( "src/com/hp/gagawa/php/nodes/FertileNode.php" ), gagawaPHP );
+			
 			File xml = new File("builder/com/hp/gagawa/builder/tags.xml");
 			parser.parse(xml.getCanonicalPath());
 			Document doc = parser.getDocument();
 			
 			NodeList nodes = doc.getElementsByTagName("tag");
-			int ilen = nodes.getLength();
-			for(int i = 0; i < ilen; i++){
+			
+			for(int i = 0; i < nodes.getLength(); i++){
+				
 				Node node = nodes.item(i);
 				NamedNodeMap nnm = node.getAttributes();
 				String name = "";
@@ -97,7 +123,8 @@ public class PHPBuilder {
 				}
 			}
 			
-			//addElementClassesToGagawaPHP("hey dude whats up");
+			// End the master Gagawa.php file with a ?> declaration.
+			append( gagawaPHP, PHP_END );
 						
 		} catch (SAXException e1) {
 			// TODO Auto-generated catch block
@@ -109,25 +136,42 @@ public class PHPBuilder {
 		System.out.println("Complete!");
 		System.exit(0);
 	}
-
 	
-	/*
-	private static String addElementClassesToGagawaPHP ( String replacement )
+	
+	private static void copyToPHP ( File from, File to )
 			throws IOException {
-	
+		
 		String line;
-		StringBuffer gagawaBuffer = new StringBuffer();
-		File gagawa = new File("src/com/hp/gagawa/php/Gagawa.php");
-		BufferedReader fr = new BufferedReader( new FileReader( gagawa ) );
+		BufferedReader reader = new BufferedReader( new FileReader( from ) );
+		PrintWriter writer = new PrintWriter( new FileWriter( to, true ) );
 		
-		while ( ( line = fr.readLine() ) != null ) {
-			gagawaBuffer.append( line + "\n" );
-		}
+		while ( ( line = reader.readLine() ) != null ) {
+			
+			// Skip lines that start with <?php and ?>
+			if( line.startsWith(PHP_START) ||
+					line.startsWith(PHP_END) ) {
+				continue;
+			}
+			
+			writer.write( line + "\n" );
+			
+		} /* while */
 		
-		return gagawaBuffer.toString();
-				
+		reader.close();
+		writer.close();
+		
 	}
-	*/
+	
+	
+	private static void append ( File file, String toAppend )
+			throws IOException {
+		
+		PrintWriter writer = new PrintWriter( new FileWriter( file, true ) );
+		writer.write( toAppend );
+		writer.close();
+		
+	}
+
 
 }
 

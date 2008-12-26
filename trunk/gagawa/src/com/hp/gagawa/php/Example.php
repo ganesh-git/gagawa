@@ -28,11 +28,6 @@
 
 require_once("Gagawa.php");
 
-require_once("elements/A.php");
-require_once("elements/Br.php");
-require_once("elements/Text.php");
-require_once("elements/Div.php");
-
 $a = new A();
 
 // Note you can daisy chain attribute setters.
