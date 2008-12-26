@@ -25,6 +25,10 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*
+ * Gagawa Attribute PHP
+ * @author kolichko Mark Kolich
+ */
 class Attribute {
 
 	private $name_;
@@ -52,8 +56,15 @@ class Attribute {
 		return $this->name_;
 	}
 
-	public function setName ( $name ) {
+	public function setName ( $name = NULL ) {
+		
+		if(empty($name)){
+			throw new Exception( "Attribute names cannot be " .
+									"empty!" );											
+		}
+		
 		$this->name_ = $name;
+		
 	}
 
 	public function getValue ( ) {
@@ -61,7 +72,14 @@ class Attribute {
 	}
 
 	public function setValue ( $value ) {
+		
+		if(empty($name)){
+			throw new Exception( "Attribute values cannot be " .
+									"empty!" );											
+		}
+		
 		$this->value_ = $value;
+		
 	}
 
 }
