@@ -33,12 +33,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.hp.gagawa.builder.php.Tag;
-
 
 /**
- * The PHPBuilder builds the PHP file for each tag and places
- * the PHP classes into src/com/hp/gagawa/php/elements.
+ * The PHPBuilder builds the PHP class for each tag.
  * @author kolichko
  *
  */
@@ -47,6 +44,7 @@ public class PHPBuilder {
 	public static void main(String[] args) {
 		
 		String myTag = null;
+		
 		if(args.length > 0){
 			myTag = args[0];
 		}
@@ -99,7 +97,8 @@ public class PHPBuilder {
 				}
 			}
 			
-			
+			//addElementClassesToGagawaPHP("hey dude whats up");
+						
 		} catch (SAXException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -111,4 +110,25 @@ public class PHPBuilder {
 		System.exit(0);
 	}
 
+	
+	/*
+	private static String addElementClassesToGagawaPHP ( String replacement )
+			throws IOException {
+	
+		String line;
+		StringBuffer gagawaBuffer = new StringBuffer();
+		File gagawa = new File("src/com/hp/gagawa/php/Gagawa.php");
+		BufferedReader fr = new BufferedReader( new FileReader( gagawa ) );
+		
+		while ( ( line = fr.readLine() ) != null ) {
+			gagawaBuffer.append( line + "\n" );
+		}
+		
+		return gagawaBuffer.toString();
+				
+	}
+	*/
+
 }
+
+
