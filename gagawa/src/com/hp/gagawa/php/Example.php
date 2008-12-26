@@ -52,8 +52,15 @@ $a->appendChild( $text )->appendChild( new Br() )
 echo $a->write() . "\n";
 
 // Example of creating a new FertileNode without the helper classes
-$tag = new FertileNode("div");
-$tag->setAttribute("class","dog")->setAttribute("id","mydiv");
-echo $tag->write() . "\n";
+$div = new FertileNode("div");
+$div->setAttribute("class","dog")->setAttribute("id","mydiv");
+$div->appendChild( new Text("inside of a div") );
+
+$ab = new A();
+$ab->setHref("http://example.com");
+$ab->appendChild( new Text("link inside of a div!") );
+$div->appendChild( $ab );
+
+echo $div->write() . "\n";
 
 ?>
