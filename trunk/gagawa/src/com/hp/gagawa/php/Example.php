@@ -25,26 +25,33 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
+/*
+$path = getcwd();
+set_include_path( get_include_path() .
+					PATH_SEPARATOR .
+					$path);
+*/
+
 require_once("Node.php");
 require_once("FertileNode.php");
 
 require_once("elements/A.php");
 require_once("elements/Br.php");
 require_once("elements/Text.php");
+require_once("elements/Div.php");
 
 $a = new A();
-$a->setHref( "http://kolich.com" );
 
 // Note you can daisy chain attribute setters.
-$a->setAttribute("class","linkclass")
-	->setAttribute("target","_blank")
+$a->setHref( "http://kolich.com" )
+	->setTarget("_blank")
+	->setCSSClass("linkclass")
 	/*->setAttribute("","") <-- will generate an expected exception */
-	->setAttribute("id","linkid");
-
-$text = new Text("random text");
+	->setId("myid")
+	->setAttribute("otherattr","other");
 
 // Note you can daisy chain children setters.
-$a->appendChild( $text )->appendChild( new Br() )
+$a->appendChild( new Text("random text") )->appendChild( new Br() )
 	->appendChild( new Text("more text") )->appendChild( new Br() )
 	/*->appendChild() <-- will generate an expected exception */
 	->appendChild( new Text("gagawa!" ) );
@@ -52,8 +59,8 @@ $a->appendChild( $text )->appendChild( new Br() )
 echo $a->write() . "\n";
 
 // Example of creating a new FertileNode without the helper classes
-$div = new FertileNode("div");
-$div->setAttribute("class","dog")->setAttribute("id","mydiv");
+$div = new Div();
+$div->setCSSClass("dog")->setId("mydiv");
 $div->appendChild( new Text("inside of a div") );
 
 $ab = new A();
