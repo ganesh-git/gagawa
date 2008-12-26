@@ -37,6 +37,10 @@ class Node {
 	protected $attributes_;
 	protected $parent_;
 
+	/**
+	 * This Node constructor can only be called from
+	 * classes that extend Node.
+	 */
 	protected function __construct ( $tag = NULL ) {
 
 		if(empty($tag)){
@@ -44,19 +48,46 @@ class Node {
 						"type!" );
 		}
 
+		$this->parent_ = NULL;
 		$this->tag_ = $tag;
 		$this->attributes_ = array();
 
 	}
 
+	/**
+	 * Returns the parent node of this node, if
+	 * a parent exists.  If no parent exists,
+	 * this function returns NULL.
+	 */
 	public function getParent ( ) {
 		return $this->parent_;
 	}
 
-	protected function setParent ( $parent ) {
+	/**
+	 * Sets the parent of this Node.  Note that this
+	 * function is protected and can only be called by
+	 * classes that extend Node.  The parent cannot
+	 * be NULL; this function will throw an Exception
+	 * if the parent node is empty.
+	 */
+	protected function setParent ( $parent = NULL ) {
+
+		if(empty($parent)){
+			throw new Exception( "Parent cannot be NULL!" );
+		}
+
 		$this->parent_ = $parent;
+
 	}
 
+	/**
+	 * Given a name and value pair, sets an attribute on this Node.
+	 * The name and value cannot be empty; if so, this function
+	 * will throw an Exception.  Note if the attribute already exists
+	 * and the caller wants to set an attribute of the same name,
+	 * this function will not create a new Attribute, but rather
+	 * update the value of the existing named attribute.
+	 */
 	public function setAttribute ( $name = NULL, $value = NULL ) {
 
 		if(empty($name) || empty($value)){
@@ -77,6 +108,11 @@ class Node {
 
 	}
 
+	/**
+	 * Fetch and attribute by name from this Node.  The attribute
+	 * name cannot be NULL; if so, this function will throw an
+	 * Exception.
+	 */
 	public function getAttribute ( $name = NULL ) {
 
 		$returnAttr = NULL;
@@ -97,6 +133,11 @@ class Node {
 
 	}
 
+	/**
+	 * Removes an attribute from this Node, by name.  The name
+	 * of the attribute to remove cannot be NULL; if so, this
+	 * function will throw an Exception.
+	 */
 	public function removeAttribute ( $name = NULL ) {
 
 		if(empty($name)){

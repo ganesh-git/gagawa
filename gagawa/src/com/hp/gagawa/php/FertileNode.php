@@ -33,6 +33,10 @@ class FertileNode extends Node {
 
 	private $children_;
 
+	/**
+	 * Create a new FertileNode with the given tag.  The
+	 * tag cannot be NULL.
+	 */
 	public function __construct ( $tag = NULL ) {
 
 		if(empty($tag)){
@@ -44,7 +48,11 @@ class FertileNode extends Node {
 		$this->children_ = array();
 
 	}
-	
+
+	/**
+	 * Add's a child to this FertileNode.  The child to
+	 * add cannot be null.
+	 */	
 	public function appendChild ( $childNode = NULL ) {
 
 		if(empty($childNode)){
@@ -57,6 +65,13 @@ class FertileNode extends Node {
 		return $this;
 	}
 
+	/**
+	 * Removes the first instance of child from this
+	 * FertileNode.  Once the first instance of the child
+	 * is removed, this function will return.  It returns
+	 * true if a child was removed and false if no child
+	 * was removed.
+	 */
 	public function removeChild ( $childNode = NULL ) {
 
 		if(empty($childNode)){
@@ -76,15 +91,27 @@ class FertileNode extends Node {
 
 	}
 
+	/**
+	 * Removes all children attached to this FertileNode.
+	 */
 	public function removeChildren ( ) {
 		unset( $this->children_ );
 		$this->children_ = array();
 	}
 
+	/**
+	 * Returns an array of all children attached to
+	 * this FertileNode.
+	 */
 	public function getChildren ( ) {
 		return $this->children_;
 	}
 
+	/**
+	 * Gets a child of this FertileNode at given
+	 * index.  If no index is passed in, getChild()
+	 * will return the child at index zero (0).
+	 */
 	public function getChild ( $index = 0 ) {
 		return $this->children_[$index];
 	}

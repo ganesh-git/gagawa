@@ -30,9 +30,16 @@ class Attribute {
 	private $name_;
 	private $value_;
 
-	public function __construct ( $name, $value ) {
+	public function __construct ( $name = NULL, $value = NULL ) {
+
+		if(empty($name) || empty($value)){
+			throw new Exception( "Attributes must have a name " .
+						"and a value!" );
+		}
+
 		$this->name_ = $name;
 		$this->value_ = $value;
+
 	}
 
 	public function write ( ) {
