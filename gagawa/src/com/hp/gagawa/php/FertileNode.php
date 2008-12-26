@@ -63,6 +63,7 @@ class FertileNode extends Node {
 		$childNode->setParent( $this );
 		$this->children_[] = $childNode;
 		return $this;
+		
 	}
 
 	/**
