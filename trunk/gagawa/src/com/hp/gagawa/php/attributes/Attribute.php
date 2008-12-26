@@ -73,7 +73,7 @@ class Attribute {
 
 	public function setValue ( $value ) {
 		
-		if(empty($name)){
+		if(empty($value)){
 			throw new Exception( "Attribute values cannot be " .
 									"empty!" );											
 		}
