@@ -68,10 +68,12 @@
 	<target name="compile" description="compiles the Gagawa HTML generator" depends="init">
 		<javac encoding="${source.encoding}" srcdir="${maindir}/src"
 			   destdir="${distdir}/${destdir}" debug="${debug}"
-			   source="${source}" />
-			<fileset>
-				<exclude name="**/*.php" />
-			</fileset>
+			   source="${source}">
+			<compilerarg value="-Xlint" />
+		</javac>
+		<fileset>
+			<exclude name="**/*.php" />
+		</fileset>
 	</target>
 	
 	<!-- ================================= 
@@ -95,7 +97,9 @@
 		<javac encoding="${source.encoding}" srcdir="${maindir}/test"
 			destdir="${distdir}/${destdir}" 
 			debug="${debug}" includeAntRuntime="no"
-			source="${source}" classpath="${junitjar}"/>
+			source="${source}" classpath="${junitjar}">
+				<compilerarg value="-Xlint" />
+		</javac>
 	</target>
 	
 	<!-- ================================= 
@@ -137,7 +141,9 @@
 		<javac encoding="${source.encoding}" srcdir="${maindir}/examples"
 			destdir="${distdir}/${destdir}" 
 			debug="${debug}" includeAntRuntime="no"
-			source="${source}" classpath="${junitjar}"/>
+			source="${source}" classpath="${junitjar}">
+				<compilerarg value="-Xlint" />
+			</javac>
 	</target>
 	
 	<!-- ================================= 
