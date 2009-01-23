@@ -24,6 +24,8 @@ package com.hp.gagawa.java;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hp.gagawa.java.elements.Text;
+
 /**
  * Represents a node that can have children
  * @author friedrch
@@ -41,6 +43,7 @@ public class FertileNode extends Node {
 	 * Appends a child node.
 	 * A node cannot be appended to itself
 	 * @param child the node to be appended
+	 * @return the node
 	 */
 	public FertileNode appendChild(Node child){
 		if(this == child){
@@ -55,39 +58,55 @@ public class FertileNode extends Node {
 	 * Appends a child node at the given index
 	 * @param index insert point
 	 * @param child node to be appended
+	 * @return the node
 	 */
-	public void appendChild(int index, Node child){
+	public FertileNode appendChild(int index, Node child){
 		if(this == child){
 			throw new Error("Cannot append a node to itself.");
 		}
 		child.setParent(this);
 		children.add(index, child);
+		return this;
 	}
 	
 	/**
 	 * Appends a list of children in the order given in the list
 	 * @param children nodes to be appended
+	 * @return the node
 	 */
-	public void appendChild(List<Node> children){
+	public FertileNode appendChild(List<Node> children){
 		for(Node child: children){
 			appendChild(child);
 		}
+		return this;
+	}
+	
+	/**
+	 * Convenience method which appends a text node to this element
+	 * @param text the text to be appended
+	 * @return the node
+	 */
+	public FertileNode appendText(String text){
+		return appendChild(new Text(text));
 	}
 	
 	/**
 	 * Removes the child node
 	 * @param child node to be removed
-	 * @return <code>true</code> if this list contained the specified element
+	 * @return the node
 	 */
-	public boolean removeChild(Node child){
-		return children.remove(child);
+	public FertileNode removeChild(Node child){
+		children.remove(child);
+		return this;
 	}
 	
 	/**
 	 * Removes all child nodes
+	 * @return the node
 	 */
-	public void removeChildren(){
-		children = new ArrayList<Node>();
+	public FertileNode removeChildren(){
+		children.clear();
+		return this;
 	}
 	
 	/**
