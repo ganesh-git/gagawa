@@ -89,7 +89,7 @@ public abstract class Node {
 		return false;
 	}
 	
-	protected void setParent(Node parent){
+	public void setParent(Node parent){
 		this.parent_ = parent;
 	}
 	
