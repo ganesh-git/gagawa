@@ -45,6 +45,11 @@ public class Attribute {
 		}
 		return b.toString();
 	}
+	
+	@Override
+	public String toString(){
+		return this.write();
+	}
 
 	public String getName() {
 		return name;
