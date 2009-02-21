@@ -50,5 +50,10 @@ public class Document{
 		b.append(html.write());
 		return b.toString();
 	}
+	
+	@Override
+	public String toString(){
+		return this.write();
+	}
 
 }

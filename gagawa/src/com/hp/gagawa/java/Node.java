@@ -1,5 +1,5 @@
 /**
-(c) Copyright 2008 Hewlett-Packard Development Company, L.P.
+(c) Copyright 2009 Hewlett-Packard Development Company, L.P.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,11 +26,11 @@ import java.util.ArrayList;
 import com.hp.gagawa.java.attributes.Attribute;
 
 public abstract class Node {
+	
 	protected String tag_;
 	protected ArrayList<Attribute> attributes_;
 	protected Node parent_;
-	
-	
+		
 	protected Node(String tag){
 		this.tag_ = tag;
 		this.attributes_ = new ArrayList<Attribute>();
@@ -101,6 +101,15 @@ public abstract class Node {
 		StringBuffer b = new StringBuffer(writeOpen());
 		b.append(writeClose());
 		return b.toString();
+	}
+	
+	/**
+	 * A convenient way of calling write().
+	 * This method calls this.write().
+	 */
+	@Override
+	public String toString(){
+		return this.write();
 	}
 	
 	protected String writeOpen(){

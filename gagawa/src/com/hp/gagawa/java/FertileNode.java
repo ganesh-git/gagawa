@@ -1,5 +1,5 @@
 /**
-(c) Copyright 2008 Hewlett-Packard Development Company, L.P.
+(c) Copyright 2009 Hewlett-Packard Development Company, L.P.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,20 +23,19 @@ package com.hp.gagawa.java;
 
 import java.util.ArrayList;
 
-
 /**
  * Represents a node that can have children
  * @author friedrch
  *
  */
 public class FertileNode extends Node {
+	
 	public ArrayList<Node> children;
 	
 	protected FertileNode(String tag){
 		super(tag);
 		this.children = new ArrayList<Node>();
 	}
-
 	
 	/**
 	 * Gets the list of child nodes
@@ -70,4 +69,14 @@ public class FertileNode extends Node {
 		b.append(writeClose());
 		return b.toString();
 	}
+	
+	/**
+	 * A convenient way of calling write().
+	 * This method calls this.write().
+	 */
+	@Override
+	public String toString(){
+		return this.write();
+	}
+	
 }
