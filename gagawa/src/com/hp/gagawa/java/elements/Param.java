@@ -33,12 +33,15 @@ public class Param extends Node {
 		setName(name);
 	}
 
-
 	@Override
 	public String write(){
 		return writeOpen();
 	}
-
+	
+	@Override
+	public String toString(){
+		return this.write();
+	}
 
 	public Param setName(String value){setAttribute("name", value); return this;}
 	public String getName(){return getAttribute("name");}

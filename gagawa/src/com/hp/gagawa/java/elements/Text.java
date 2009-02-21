@@ -53,5 +53,10 @@ public class Text extends Node {
 	public String write(){
 		return tag_;
 	}
-
+	
+	@Override
+	public String toString(){
+		return this.write();
+	}
+	
 }

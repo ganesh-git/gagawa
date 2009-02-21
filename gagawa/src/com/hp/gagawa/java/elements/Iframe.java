@@ -37,6 +37,11 @@ public class Iframe extends Node {
 	public String write(){
 		return writeOpen();
 	}
+	
+	@Override
+	public String toString(){
+		return this.write();
+	}
 
 
 	public Iframe setAlign(String value){setAttribute("align", value); return this;}

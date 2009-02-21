@@ -32,12 +32,15 @@ public class Col extends Node {
 		super("col");
 	}
 
-
 	@Override
 	public String write(){
 		return writeOpen();
 	}
 
+	@Override
+	public String toString(){
+		return this.write();
+	}
 
 	public Col setAlign(String value){setAttribute("align", value); return this;}
 	public String getAlign(){return getAttribute("align");}

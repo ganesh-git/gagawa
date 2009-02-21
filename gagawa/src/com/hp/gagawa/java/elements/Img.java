@@ -39,6 +39,11 @@ public class Img extends Node {
 	public String write(){
 		return writeOpen();
 	}
+	
+	@Override
+	public String toString(){
+		return this.write();
+	}
 
 
 	public Img setAlt(String value){setAttribute("alt", value); return this;}
