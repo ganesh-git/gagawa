@@ -37,6 +37,11 @@ public class Hr extends Node {
 	public String write(){
 		return writeOpen();
 	}
+	
+	@Override
+	public String toString(){
+		return this.write();
+	}
 
 
 	public Hr setAlign(String value){setAttribute("align", value); return this;}

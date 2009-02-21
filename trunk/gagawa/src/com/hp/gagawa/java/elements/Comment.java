@@ -52,6 +52,11 @@ public class Comment extends FertileNode {
 		b.append("< -->");
 		return b.toString();
 	}
+	
+	@Override
+	public String toString(){
+		return this.write();
+	}
 
 	/**
 	 * Appends a child node to the end of this element's DOM tree

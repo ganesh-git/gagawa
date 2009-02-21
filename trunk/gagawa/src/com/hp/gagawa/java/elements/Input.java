@@ -32,12 +32,15 @@ public class Input extends Node {
 		super("input");
 	}
 
-
 	@Override
 	public String write(){
 		return writeOpen();
 	}
-
+	
+	@Override
+	public String toString(){
+		return this.write();
+	}
 
 	public Input setAccept(String value){setAttribute("accept", value); return this;}
 	public String getAccept(){return getAttribute("accept");}

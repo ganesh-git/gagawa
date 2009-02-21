@@ -46,6 +46,11 @@ public class Doctype extends Node {
 		b.append(">");
 		return b.toString();
 	}
+	
+	@Override
+	public String toString(){
+		return this.write();
+	}
 
 
 }
