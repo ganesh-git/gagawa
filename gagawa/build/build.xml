@@ -151,7 +151,7 @@
          ================================= -->
 	<target name="javadoc" description="builds the Gagawa javadoc">
 		<mkdir dir="${docdir}/javadoc" />
-		<javadoc sourcepath="${maindir}/src" destdir="${docdir}/javadoc"
+		<javadoc destdir="${docdir}/javadoc"
 			     access="package" version="true" use="true"
 		         author="true" encoding="${source.encoding}">
 			<fileset dir="${maindir}/src" includes="**/*.java" />
