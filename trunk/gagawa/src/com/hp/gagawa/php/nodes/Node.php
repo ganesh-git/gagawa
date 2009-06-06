@@ -1,7 +1,7 @@
 <?php
 
 /*
- * (c) Copyright 2008 Hewlett-Packard Development Company, L.P.
+ * (c) Copyright 2009 Hewlett-Packard Development Company, L.P.
  * 
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -44,7 +44,7 @@ class Node {
 	 */
 	protected function __construct ( $tag = NULL ) {
 
-		if(empty($tag)){
+		if(GagawaUtil::gagawaIsEmpty($tag)){
 			throw new Exception( "Node's must have a tag " .
 						"type!" );
 		}
@@ -73,7 +73,7 @@ class Node {
 	 */
 	protected function setParent ( $parent = NULL ) {
 
-		if(empty($parent)){
+		if(GagawaUtil::gagawaIsEmpty($parent)){
 			throw new Exception( "Parent cannot be NULL!" );
 		}
 
@@ -91,7 +91,8 @@ class Node {
 	 */
 	public function setAttribute ( $name = NULL, $value = NULL ) {
 
-		if(empty($name) || empty($value)){
+		if(GagawaUtil::gagawaIsEmpty($name) ||
+			GagawaUtil::gagawaIsEmpty($value)){
 			throw new Exception("Attributes must have " .
 						"a name and a value!");
 
@@ -118,7 +119,7 @@ class Node {
 
 		$returnAttr = NULL;
 
-		if(empty($name)){
+		if(GagawaUtil::gagawaIsEmpty($name)){
 			throw new Exception("Attribute name cannot " .
 						"be empty!");
 		}
@@ -141,7 +142,7 @@ class Node {
 	 */
 	public function removeAttribute ( $name = NULL ) {
 
-		if(empty($name)){
+		if(GagawaUtil::gagawaIsEmpty($name)){
 			throw new Exception("Attribute name cannot " .
 						"be empty!");
 		}

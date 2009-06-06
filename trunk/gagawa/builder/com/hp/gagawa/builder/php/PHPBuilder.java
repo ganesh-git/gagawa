@@ -1,5 +1,5 @@
 /**
-(c) Copyright 2008 Hewlett-Packard Development Company, L.P.
+(c) Copyright 2009 Hewlett-Packard Development Company, L.P.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -72,6 +72,7 @@ public class PHPBuilder {
 			append( gagawaPHP, PHP_START + "\n" );
 			
 			// Copy the contents of node/*.php to Gagawa.php.
+			copyToPHP( new File( "src/com/hp/gagawa/php/util/GagawaUtil.php" ), gagawaPHP );
 			copyToPHP( new File( "src/com/hp/gagawa/php/nodes/Attribute.php" ), gagawaPHP );
 			copyToPHP( new File( "src/com/hp/gagawa/php/nodes/Node.php" ), gagawaPHP );
 			copyToPHP( new File( "src/com/hp/gagawa/php/nodes/FertileNode.php" ), gagawaPHP );
@@ -127,11 +128,9 @@ public class PHPBuilder {
 			append( gagawaPHP, PHP_END );
 						
 		} catch (SAXException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e1.printStackTrace( System.err );
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e1.printStackTrace( System.err );
 		}
 		System.out.println("Complete!");
 		System.exit(0);

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * (c) Copyright 2008 Hewlett-Packard Development Company, L.P.
+ * (c) Copyright 2009 Hewlett-Packard Development Company, L.P.
  * 
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -42,7 +42,7 @@ class FertileNode extends Node {
 	 */
 	public function __construct ( $tag = NULL ) {
 
-		if(empty($tag)){
+		if(GagawaUtil::gagawaIsEmpty($tag)){
 			throw new Exception( "FertileNode's must have a tag " .
 						"type!" );
 		}
@@ -58,7 +58,7 @@ class FertileNode extends Node {
 	 */	
 	public function appendChild ( $childNode = NULL ) {
 
-		if(empty($childNode)){
+		if(GagawaUtil::gagawaIsEmpty($childNode)){
 			throw new Exception( "You cannot append an empty " .
 						"child node!" );
 		}
@@ -78,7 +78,7 @@ class FertileNode extends Node {
 	 */
 	public function removeChild ( $childNode = NULL ) {
 
-		if(empty($childNode)){
+		if(GagawaUtil::gagawaIsEmpty($childNode)){
 			throw new Exception( "You cannot remove an empty " .
 						"child node!" );
 		}
@@ -125,8 +125,7 @@ class FertileNode extends Node {
 		
 		$buffer = $this->writeOpen();		
 		foreach ( $this->children_ as $child ) {
-			$buffer .= $child->write();
-		
+			$buffer .= $child->write();		
 		}		
 		$buffer .= $this->writeClose();
 		
