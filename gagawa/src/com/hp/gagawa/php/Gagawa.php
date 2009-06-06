@@ -25,6 +25,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  * 
  * http://code.google.com/p/gagawa/
+ *
+ * VERSION:
+ *   1.1-beta
  * 
  * AUTHORS:
  *   Mark Kolich
