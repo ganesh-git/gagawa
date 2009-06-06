@@ -1,7 +1,7 @@
 <?php
 
 /*
- * (c) Copyright 2008 Hewlett-Packard Development Company, L.P.
+ * (c) Copyright 2009 Hewlett-Packard Development Company, L.P.
  * 
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -39,7 +39,8 @@ class Attribute {
 
 	public function __construct ( $name = NULL, $value = NULL ) {
 
-		if(empty($name) || empty($value)){
+		if(GagawaUtil::gagawaIsEmpty($name) ||
+			GagawaUtil::gagawaIsEmpty($value)){
 			throw new Exception( "Attributes must have a name " .
 						"and a value!" );
 		}
@@ -61,7 +62,7 @@ class Attribute {
 
 	public function setName ( $name = NULL ) {
 		
-		if(empty($name)){
+		if(GagawaUtil::gagawaIsEmpty($name)){
 			throw new Exception( "Attribute names cannot be " .
 									"empty!" );
 		}
@@ -76,7 +77,7 @@ class Attribute {
 
 	public function setValue ( $value ) {
 		
-		if(empty($value)){
+		if(GagawaUtil::gagawaIsEmpty($value)){
 			throw new Exception( "Attribute values cannot be " .
 									"empty!" );
 		}

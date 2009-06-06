@@ -1,7 +1,7 @@
 <?php
 
 /*
- * (c) Copyright 2008 Hewlett-Packard Development Company, L.P.
+ * (c) Copyright 2009 Hewlett-Packard Development Company, L.P.
  * 
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -31,6 +31,52 @@
  *   Chris Friedrich
  * 
  */
+ 
+class GagawaUtil {
+
+	/**
+	 * Checks if a variable is really "empty".  Code borrowed from PHP.net at
+	 * http://us3.php.net/manual/en/function.empty.php#90767 because we were
+	 * previously using empty() to see if a variable is empty or not.  But
+	 * empty() dosen't work for attributes that have a value of "0", so we need
+	 * something more robust here.
+	 *
+	 *   an unset variable -> empty
+	 *   null -> empty
+	 *   0 -> NOT empty
+	 *   "0" -> NOT empty
+	 *   false -> empty
+	 *   true -> NOT empty
+	 *   'string value' -> NOT empty
+	 *   "    " (white space) -> empty
+	 *   array() (empty array) -> empty
+	 *
+	 * There are two optional parameters:
+	 *
+	 *   allow_false: setting this to true will make the function consider a
+	 *   boolean value of false as NOT empty. This parameter is false by default.
+	 *
+	 *   allow_ws: setting this to true will make the function consider a string
+	 *   with nothing but white space as NOT empty. This parameter is false by
+	 *   default.
+	 */
+	public static function gagawaIsEmpty ( $var, $allow_false = false,
+											$allow_ws = false ) {
+	
+	    if ( !isset($var) || is_null($var) ||
+	    	 ($allow_ws == false && !is_object($var) && trim($var) == "" && !is_bool($var)) ||
+	    	 ($allow_false === false && is_bool($var) && $var === false) ||
+	    	 (is_array($var) && empty($var)) ) {   
+	        return true;
+	    }
+	    else {
+	        return false;
+	    }
+	     
+ 	}
+ 	
+}
+
 
 class Attribute {
 
@@ -39,7 +85,8 @@ class Attribute {
 
 	public function __construct ( $name = NULL, $value = NULL ) {
 
-		if(empty($name) || empty($value)){
+		if(GagawaUtil::gagawaIsEmpty($name) ||
+			GagawaUtil::gagawaIsEmpty($value)){
 			throw new Exception( "Attributes must have a name " .
 						"and a value!" );
 		}
@@ -61,7 +108,7 @@ class Attribute {
 
 	public function setName ( $name = NULL ) {
 		
-		if(empty($name)){
+		if(GagawaUtil::gagawaIsEmpty($name)){
 			throw new Exception( "Attribute names cannot be " .
 									"empty!" );
 		}
@@ -76,7 +123,7 @@ class Attribute {
 
 	public function setValue ( $value ) {
 		
-		if(empty($value)){
+		if(GagawaUtil::gagawaIsEmpty($value)){
 			throw new Exception( "Attribute values cannot be " .
 									"empty!" );
 		}
@@ -100,7 +147,7 @@ class Node {
 	 */
 	protected function __construct ( $tag = NULL ) {
 
-		if(empty($tag)){
+		if(GagawaUtil::gagawaIsEmpty($tag)){
 			throw new Exception( "Node's must have a tag " .
 						"type!" );
 		}
@@ -129,7 +176,7 @@ class Node {
 	 */
 	protected function setParent ( $parent = NULL ) {
 
-		if(empty($parent)){
+		if(GagawaUtil::gagawaIsEmpty($parent)){
 			throw new Exception( "Parent cannot be NULL!" );
 		}
 
@@ -147,7 +194,8 @@ class Node {
 	 */
 	public function setAttribute ( $name = NULL, $value = NULL ) {
 
-		if(empty($name) || empty($value)){
+		if(GagawaUtil::gagawaIsEmpty($name) ||
+			GagawaUtil::gagawaIsEmpty($value)){
 			throw new Exception("Attributes must have " .
 						"a name and a value!");
 
@@ -174,7 +222,7 @@ class Node {
 
 		$returnAttr = NULL;
 
-		if(empty($name)){
+		if(GagawaUtil::gagawaIsEmpty($name)){
 			throw new Exception("Attribute name cannot " .
 						"be empty!");
 		}
@@ -197,7 +245,7 @@ class Node {
 	 */
 	public function removeAttribute ( $name = NULL ) {
 
-		if(empty($name)){
+		if(GagawaUtil::gagawaIsEmpty($name)){
 			throw new Exception("Attribute name cannot " .
 						"be empty!");
 		}
@@ -249,7 +297,7 @@ class FertileNode extends Node {
 	 */
 	public function __construct ( $tag = NULL ) {
 
-		if(empty($tag)){
+		if(GagawaUtil::gagawaIsEmpty($tag)){
 			throw new Exception( "FertileNode's must have a tag " .
 						"type!" );
 		}
@@ -265,7 +313,7 @@ class FertileNode extends Node {
 	 */	
 	public function appendChild ( $childNode = NULL ) {
 
-		if(empty($childNode)){
+		if(GagawaUtil::gagawaIsEmpty($childNode)){
 			throw new Exception( "You cannot append an empty " .
 						"child node!" );
 		}
@@ -285,7 +333,7 @@ class FertileNode extends Node {
 	 */
 	public function removeChild ( $childNode = NULL ) {
 
-		if(empty($childNode)){
+		if(GagawaUtil::gagawaIsEmpty($childNode)){
 			throw new Exception( "You cannot remove an empty " .
 						"child node!" );
 		}
@@ -332,8 +380,7 @@ class FertileNode extends Node {
 		
 		$buffer = $this->writeOpen();		
 		foreach ( $this->children_ as $child ) {
-			$buffer .= $child->write();
-		
+			$buffer .= $child->write();		
 		}		
 		$buffer .= $this->writeClose();
 		
@@ -3827,16 +3874,16 @@ class Td extends FertileNode {
 
 
 class Text extends Node {
-	
-	public function __construct($text){
-		parent::__construct($text);
-	}
-	
-	/* @Override */
-	public function write(){
-		return $this->tag_;
-	}
-	
+
+        public function __construct($text){
+                parent::__construct($text);
+        }
+
+        /* @Override */
+        public function write(){
+                return $this->tag_;
+        }
+
 }
 
 
@@ -4309,50 +4356,5 @@ class Ul extends FertileNode {
 	public function removeXMLLang(){ return $this->removeAttribute( "xml:lang" ); }
 
 }
-
-/*
- * Var appears to be a PHP reserved keyword, so we can't have a class
- * named "Var".  Until I figure out how to resolve this, I've commented
- * out this class.
- *  -- Mark Kolich 12/26/08
- */
-
-/*
-class Var extends FertileNode {
-
-	public function __construct(){
-		parent::__construct("var");
-	}
-
-	public function setId( $value ){ $this->setAttribute( "id", $value ); return $this; }
-	public function getId(){ return $this->getAttribute( "id" ); }
-	public function removeId(){ return $this->removeAttribute( "id" ); }
-
-	public function setCSSClass( $value ){ $this->setAttribute( "class", $value ); return $this; }
-	public function getCSSClass(){ return $this->getAttribute( "class" ); }
-	public function removeCSSClass(){ return $this->removeAttribute( "class" ); }
-
-	public function setTitle( $value ){ $this->setAttribute( "title", $value ); return $this; }
-	public function getTitle(){ return $this->getAttribute( "title" ); }
-	public function removeTitle(){ return $this->removeAttribute( "title" ); }
-
-	public function setStyle( $value ){ $this->setAttribute( "style", $value ); return $this; }
-	public function getStyle(){ return $this->getAttribute( "style" ); }
-	public function removeStyle(){ return $this->removeAttribute( "style" ); }
-
-	public function setDir( $value ){ $this->setAttribute( "dir", $value ); return $this; }
-	public function getDir(){ return $this->getAttribute( "dir" ); }
-	public function removeDir(){ return $this->removeAttribute( "dir" ); }
-
-	public function setLang( $value ){ $this->setAttribute( "lang", $value ); return $this; }
-	public function getLang(){ return $this->getAttribute( "lang" ); }
-	public function removeLang(){ return $this->removeAttribute( "lang" ); }
-
-	public function setXMLLang( $value ){ $this->setAttribute( "xml:lang", $value ); return $this; }
-	public function getXMLLang(){ return $this->getAttribute( "xml:lang" ); }
-	public function removeXMLLang(){ return $this->removeAttribute( "xml:lang" ); }
-
-}
-*/
 
 ?>
