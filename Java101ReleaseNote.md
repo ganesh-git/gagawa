@@ -1,0 +1,5 @@
+Note on Gagawa 1.0.1 (Java)
+
+Please be aware that the class path for Java Gagawa has changed.
+
+It is now com.hp.gagawa.java.
